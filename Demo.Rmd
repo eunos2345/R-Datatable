@@ -1,0 +1,83 @@
+---
+title: "Datatable Demo"
+author: "Shi (Edwin) Bai"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DT)
+```
+
+******
+### Cheatsheet
+#### Link: https://github.com/eunos2345/R-Datatable/blob/master/DT%20Cheatsheet.pdf
+
+******
+
+### Datatable with Zero Configuration
+```{r}
+datatable(iris)
+```
+
+******
+
+### Datatable with "Compact" and "Hover" sytle
+```{r}
+datatable(iris, class = "compact hover")
+```
+
+******
+
+### Customize Row and Column Names
+```{r}
+datatable(iris, rownames = FALSE, colnames = c("S-Length"="Sepal.Length", "S-Width"="Sepal.Width", "P-Length"="Petal.Length", "P-Width"="Petal.Width"))
+```
+
+******
+
+### Datatable with Caption at the Bottom
+```{r}
+datatable(iris, caption = htmltools::tags$caption(style = "caption-side: bottom;
+           text-align: center;","Iris Table"))
+```
+
+******
+
+### Datatable with Column Filters, and *Sepal.Lenght* column Rounded to Integer
+
+```{r}
+datatable(iris, filter = "top") %>% formatRound("Sepal.Length",0)
+```
+
+******
+
+### Datatable that 
+**- Sorted the by column 2 (ascending), and then column 4 (descending)**
+
+**- Disabled sorting for column 3**
+
+**- With displaying 5 rows by default, and the number of rows can be displayed are 5 and 10**
+
+**- Center the elements in the 5th column**
+
+```{r}
+datatable(iris, options = list(
+  columnDefs = list(
+    list(className = 'dt-center', targets = 5),
+    list(orderable = FALSE, targets = 3)
+  ),
+  pageLength = 5,
+  lengthMenu = c(5,10),
+  order = list(
+    list(2, "asc"),
+    list(4, "desc")
+  ))
+)
+```
+
+******
+
+Author: Shi (Edwin) Bai, s.bai@columbia.edu
+
+Reference: https://rstudio.github.io/DT/, and https://datatables.net/
